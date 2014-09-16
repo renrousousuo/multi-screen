@@ -1,0 +1,4 @@
+{
+    "MAX_TEAM": 3, //最大组数目
+    "img_server"    : "http://fuhua.baidu.com:8080/_res/img/"
+}

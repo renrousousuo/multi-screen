@@ -1,0 +1,66 @@
+{% extends 'layout.html' %}
+
+{% block title %}FuHua-数据中心{% endblock %}
+
+{% block head %}
+  {% parent %}
+
+{% endblock %}
+
+{% block content %}
+
+{% include "./widget/head.html" ignore missing %}
+
+<div class="ui teal menu">
+      <a class="active item" href="/ds/index"><i class="home icon"></i> 首页</a>
+      <a class="item" href="/ds/create"><i class="add icon"></i> 创建数据源</a>
+    </div>
+<div class="ds-list">
+<table class="ui table segment" id="j_ds_list">
+    <thead>
+    <tr>
+    <th>ID</th>
+    <th>名称</th>
+    <th>类别</th>
+    <th>数据API</th>
+    <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+{% for ds in ds_list %}
+    <tr data-ds_id="{{ ds['ds_id'] }}">
+    <td>{{ ds['ds_id'] }}</td>
+    <td>{{ ds['ds_name'] }}</td>
+    <td>{{ ds['type'] }}</td>
+    <td><a href="/ds/api/ds_data?ds_id=ds_1iMpvLE">预览</a></td>
+    <td>
+        <a class="ui small green icon button" href="/ds/edit?ds_id={{ ds['ds_id'] }}"><i class="edit sign icon"></i></a>
+        <a class="ui small red icon button"><i class="delete icon"></i></a>
+        &nbsp;<a class="ui green" href="/ds/data_admin?ds_id={{ ds['ds_id'] }}">数据管理</a>
+        
+    </td>
+    </tr>
+{% endfor %}
+
+</table>   
+</div>
+
+{% endblock %}
+
+{% block page_end %}
+<script src="/ds/static/js/ds_manager.js"></script>
+<script>
+$("#j_ds_list").on('click', '.delete', function(){
+    var tr = $(this).parentsUntil('tbody').last();
+    var id = tr.attr('data-ds_id');
+    DS.remove(id, function(result){
+        if(result.error == 0){
+            tr.remove();
+        }
+        else{
+            alert('操作失败');
+        }
+    }, 'json');
+});
+</script>
+{% endblock %}

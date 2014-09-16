@@ -1,0 +1,25 @@
+{% set st_server = "http://fuhua.baidu.com:8080/" %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" href="{{ st_server }}static/semantic/packaged/css/semantic.css" />
+<link rel="stylesheet" href="{{ st_server }}static/octicons/octicons.css" />
+<link rel="stylesheet" href="/ds/static/css/site.css" />
+<title>>{% block title %}Fuhua{% endblock %}</title>
+{% block head %} {% endblock %}
+</head>
+<body class="fh">
+
+<div class="fh-page">
+{% block content %}{% endblock %}
+</div>
+
+<script src="{{ st_server }}static/jquery-2.1.1.js"></script>
+<script src="{{ st_server }}static/semantic/packaged/javascript/semantic.js"></script>
+<script src="{{ st_server }}static/underscore.js"></script>
+<script src="/ds/static/js/util.js"></script>
+{% block page_end %}{% endblock %}
+</body>
+</html>

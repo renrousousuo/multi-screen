@@ -1,0 +1,7 @@
+{
+    "/ds/index" : {
+        "method"        : "get",
+        "controller"    : "ds_index.js",
+        "function"      : "execute"
+    }
+}

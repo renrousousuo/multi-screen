@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>喵汪大战</title>
+	<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+	<div class="container" id="stage">
+	</div>
+	<audio src="audios/op.mp3" id='bgmusic' autoplay loop></audio>
+	<!--场景模板-->
+	<div id='templates'>
+		<div id='intro' class='state'>
+			<div id="qrcode">
+				
+			</div>
+			<span id='join-count'>服务器连接中...</span>
+		</div>
+		<div id='ready' style='color:white' class='state'>
+			<img src="images/3.png" alt="倒计时" id="countImage">
+		</div>
+		<div id="battle" class='state'>
+			<div class="cardbar" id="cards">
+				
+			</div>
+			<div class="header" id='p1'><img src="images/cat_head.png" alt="玩家1"></div>
+			<div class="header" id='p2'><img src="images/cat_head2.png" alt="玩家2"></div>
+			<div class="header" id='p3'><img src="images/dog_head.png" alt="玩家3"></div>
+			<div class="header" id='p4'><img src="images/dog_head2.png" alt="玩家4"></div>
+			<div class="role" id="boss1">
+				<img src="images/cat.png" alt="">
+			</div>
+			<div class="blood" id='blood1'></div>
+			<div class="role" id="boss2">
+				<img src="images/dog.png" alt="">
+			</div>
+			<div class="blood" id='blood2'></div>
+		</div>
+		<div id="gameover" class="state">
+			<h1>Gameover</h1>
+		</div>
+	</div>
+</body>
+
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/qrcode_a3a0a4f.js"></script>
+<script src="js/view.js"></script>
+<script src="js/socket.io-1.1.0.js"></script>
+<script src="js/index.js"></script>
+</html>

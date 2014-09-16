@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)http://192.168.1.170:8084/static/master.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+</head>
+<body>
+Hi...
+<ul id="msg-list">
+
+<li> i am the master: undefined</li></ul>
+<script src="js/zepto.min.js"></script>
+<script src="js/socket.io-1.1.0.js"></script>
+<script>
+var socket = io('http://192.168.1.170:8084/master');
+socket.on('connect', function(){
+    //socket.emit('enter_game', 'hello');
+    
+});
+
+socket.on('sa-connected', function(data){
+    //var res = $.parseJSON(data);
+    console.log(data);
+    $("#msg-list").append('<li> i am the master: ' + data.id + '</li>');
+});
+
+socket.on('sa-user-join', function(msg){
+    console.log(msg);
+    $("#msg-list").append('<li> user join: ' + JSON.stringify(msg.data)+ '</li>');
+});
+
+socket.on('sa-new-shape', function(msg){
+    console.log(msg);
+    $("#msg-list").append('<li> a shape was generated : ' + JSON.stringify(msg.data)+ '</li>');
+});
+
+</script>
+
+<div id="extqrcode"><div class="qrcodecontent"><span class="qrcodeclose">×</span><p class="qrcodetext">正在努力加载中<span class="qrcodedots">.&nbsp;&nbsp;</span></p><div class="qrcodeimg"><img src="./master_files/master.html" width="200" height="200"></div><div class="qrcodeloading"><img src="chrome-extension://acldmejjkmojmmipkmkgkdidcjgckojg/images/loading.gif" width="30" height="30"></div></div></div></body></html>
