@@ -1,4 +1,53 @@
 {
-    "MAX_TEAM": 3, //最大组数目
-    "img_server"    : "http://fuhua.baidu.com:8080/_res/img/"
+    "max_team": 3,
+    "max_room": 2,
+    "max_players_in_room": 4,
+    "boss_metadata": [
+        {},
+        {
+            "max_hp": 500,
+            "name": "飞天猫"
+        },
+        {
+            "max_hp": 500,
+            "name": "哮天犬"
+        },
+        {
+            "max_hp": 500,
+            "name": "九尾狐"
+        }
+    ],
+    "shape_metadata": {
+        "1": {
+            "damage": 100
+        },
+        "2": {
+            "damage": 200
+        },
+        "3": {
+            "damage": 150
+        },
+        "4": {
+            "damage": 160
+        },
+        "5": {
+            "damage": 180
+        },
+        "6": {
+            "damage": 190
+        },
+        "7": {
+            "damage": 250
+        },
+        "8": {
+            "damage": 220
+        },
+        "9": {
+            "damage": 170
+        }
+    },
+    "role_name": [ 
+        "", "一鸣惊人", "二八佳人", "三生有幸", "四季发财",
+        "五谷丰登", "六六大顺", "七上八下", "八面威风", "九五至尊"
+    ]
 }

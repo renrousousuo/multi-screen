@@ -1,38 +1,82 @@
-<!DOCTYPE html>
-<!-- saved from url=(0044)http://192.168.1.170:8084/static/master.html -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!doctype html>
+<html>
+<head>
 <meta charset="utf-8">
 </head>
 <body>
 Hi...
+<input type="button" value="Start Game" id="j_start_game">
+<input type="button" value="停止生成符文" id="j_stop_gen_shape">
+<input type="button" value="Game Over" id="j_end_game">
+<input type="button" value="清除消息" id="j_clear_msg">
+<h2 id="j_master"></h2>
+<p id="game_info"></p>
 <ul id="msg-list">
-
-<li> i am the master: undefined</li></ul>
-<script src="js/zepto.min.js"></script>
-<script src="js/socket.io-1.1.0.js"></script>
+</ul>
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/socket.io-1.1.0.js"></script>
 <script>
-var socket = io('http://192.168.1.170:8084/master');
+$("#j_start_game").on('click', function(){
+    socket.emit('as_start_game', '');
+});
+
+$("#j_clear_msg").on('click', function(){
+    $("#msg-list").html('');
+});
+
+$("#j_stop_gen_shape").on('click', function(){
+    socket.emit('as_stop_gen_shape', '');
+});
+
+$("#j_end_game").on('click', function(){
+    $("#msg-list").html('');
+    socket.emit('as_end_game', '');
+});
+
+var socket = io('http://localhost:8084/master');
 socket.on('connect', function(){
     //socket.emit('enter_game', 'hello');
     
 });
 
-socket.on('sa-connected', function(data){
-    //var res = $.parseJSON(data);
-    console.log(data);
-    $("#msg-list").append('<li> i am the master: ' + data.id + '</li>');
+socket.on('sa-connected', function(msg){
+    $("#j_master").html('i am the master: ' + JSON.stringify(msg.sid) + '');
+    $("#game_info").html('game info: ' + JSON.stringify(msg) + '');
+    
 });
 
-socket.on('sa-user-join', function(msg){
-    console.log(msg);
-    $("#msg-list").append('<li> user join: ' + JSON.stringify(msg.data)+ '</li>');
-});
+var MSG_CONF = {
+    'sa-user-join': {
+        'msg_prefix': 'user join'
+    },
+    'sa-user-leave': {
+        'msg_prefix': 'user leave'
+    },
+    'sa-gameover': {
+        'msg_prefix': 'gameover'
+    },
+    'sa-new-shape': {
+        'msg_prefix': 'a new shape'
+    },
+    'sa-rm-shape': {
+        'msg_prefix': 'a shape is used'
+    },
+    'sa-stop-gen-shape': {
+        'msg_prefix': 'master stop gen shape, current shapes'
+    },
+};
 
-socket.on('sa-new-shape', function(msg){
-    console.log(msg);
-    $("#msg-list").append('<li> a shape was generated : ' + JSON.stringify(msg.data)+ '</li>');
-});
+for(var key in MSG_CONF){
+    (function(){
+        var action = key;
+        socket.on(action, function(msg){
+            var prefix = MSG_CONF[action]['msg_prefix'];
+            var html = '<li>' + prefix + ' : ' + JSON.stringify(msg.data) + '</li>';
+            $("#msg-list").append(html);
+        });
+    })();
+}
 
 </script>
-
-<div id="extqrcode"><div class="qrcodecontent"><span class="qrcodeclose">×</span><p class="qrcodetext">正在努力加载中<span class="qrcodedots">.&nbsp;&nbsp;</span></p><div class="qrcodeimg"><img src="./master_files/master.html" width="200" height="200"></div><div class="qrcodeloading"><img src="chrome-extension://acldmejjkmojmmipkmkgkdidcjgckojg/images/loading.gif" width="30" height="30"></div></div></div></body></html>
+</body>
+</html>
