@@ -22,8 +22,7 @@ CardBar.prototype.insert = function(d) {
 	var item = $('<div class="card" data-id="' + d.shape.id + '"><img src="' + shapeImags[d.shape.type] + '"/></div>');
 	container.prepend(item);
 	item.animate({
-		left: '800px',
-		opacity: 0
+		left: 800
 	}, 10000);
 };
 CardBar.prototype.destroy = function(id) {

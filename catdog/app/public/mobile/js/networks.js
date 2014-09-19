@@ -3,7 +3,7 @@ var networks = networks || {};
 void
 
 function(exports) {
-  var serverUrl = 'http://172.22.72.152:8084/slave';
+  var serverUrl = '192.168.1.104:8084/slave';
   //var serverUrl = 'http://192.168.1.129:8084/slave';
 
   var socket;

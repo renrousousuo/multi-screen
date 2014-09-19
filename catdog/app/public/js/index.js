@@ -5,7 +5,7 @@ $(function() {
 	var cards;
 	var configs = {
 		maxPlayers: 4,
-		address: 'http://172.22.72.152:8084/master',
+		address: '192.168.1.104:8084/master',
 		bossList: []
 	};
 	var activeBoss = [];
@@ -25,7 +25,7 @@ $(function() {
 	var states = {
 		'intro': {
 			enter: function(data) {
-				createQrcode('http://172.22.72.152:8084/static/mobile');
+				createQrcode('http://192.168.1.104:8084/static/mobile');
 				var intro = $("#templates").find('#intro');
 				$("#stage").append(intro);
 			},
@@ -167,7 +167,6 @@ $(function() {
 		var card;
 		if (cards && d.shape) card = cards.destroy(d.shape.id);
 		var r = d.attack_result;
-		console.log(d);
 		if (r) {
 			console.log(r);
 			//攻击消耗
@@ -183,21 +182,20 @@ $(function() {
 			card.css({
 				zIndex: 2,
 				top: 300,
-				opacity: 1,
 				left: selfcontainer.css('left'),
 				right: selfcontainer.css('right')
 			});
 			$("#battle").append(card);
-			console.log(card.css('left'), card.css('right'), card.css('left') !== 'auto');
+			console.log(selfcontainer.css('left'), selfcontainer.css('right'));
+			//console.log(card.css('left'), card.css('right'), card.css('left') !== 'auto');
 			if (card.css('left') !== 'auto') {
-				card.animate({
+				card.stop().animate({
 					'left': 1300,
 				}, function() {
 					card.remove();
 				})
 			} else {
-				card.css('right', 100);
-				card.animate({
+				card.stop().animate({
 					'right': 1300,
 				}, function() {
 					card.remove();
