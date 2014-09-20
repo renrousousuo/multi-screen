@@ -174,6 +174,7 @@ $(function() {
 			//攻击消耗
 			var enemy = activeBoss[parseInt(r.player.enemy)];
 			var self = activeBoss[parseInt(r.player.hero)];
+			self.attack();
 			var enemycontainer = enemy.container;
 			var selfcontainer = self.container;
 			enemy.configs.data.hp = r.boss_status.hp;
@@ -189,14 +190,14 @@ $(function() {
 			});
 			$("#battle").append(card);
 			if (card.css('left') !== 'auto') {
-				card.animate({
+				card.stop().animate({
 					'left': 1300,
 				}, function() {
 					card.remove();
 				})
 			} else {
 				card.css('right', 100);
-				card.animate({
+				card.stop().animate({
 					'right': 1300,
 				}, function() {
 					card.remove();
