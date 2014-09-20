@@ -5,7 +5,7 @@ $(function() {
 	var cards;
 	var configs = {
 		maxPlayers: 4,
-		address: 'http://172.22.72.142:8084/master',
+		address: 'http://192.168.1.104:8084/master',
 		bossList: []
 	};
 	var activeBoss = [];
@@ -25,7 +25,7 @@ $(function() {
 	var states = {
 		'intro': {
 			enter: function(data) {
-				createQrcode('http://172.22.72.142:8084/static/mobile');
+				createQrcode('http://192.168.1.104:8084/static/mobile');
 				var intro = $("#templates").find('#intro');
 				$("#stage").append(intro);
 			},
@@ -134,7 +134,6 @@ $(function() {
 		var joinCount = $("#join-count");
 		configs.maxPlayers = data.max_players;
 		configs.bossList = data.boss_list;
-		console.log(data);
 		joinCount.html(data.total + '/' + configs.maxPlayers);
 		if (data.total >= configs.maxPlayers) {
 			stateChecker.toState('ready');
