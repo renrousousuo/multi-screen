@@ -1,5 +1,9 @@
 $(function() {
 	// var cards = new _W.CardBar('cards');
+	var winnerImages = [
+		'images/cat_win_text.png',
+		'images/dog_win_text.png'
+	];
 	var bgmusic = $("#bgmusic");
 	var playerList = [];
 	var cards;
@@ -173,7 +177,6 @@ $(function() {
 			var enemycontainer = enemy.container;
 			var selfcontainer = self.container;
 			enemy.configs.data.hp = r.boss_status.hp;
-			console.log(enemy.configs.data.hp / enemy.configs.data.max_hp * 330);
 			enemy.configs.BloodBar.css({
 				'width': enemy.configs.data.hp / enemy.configs.data.max_hp * 330
 			});
@@ -185,7 +188,6 @@ $(function() {
 				right: selfcontainer.css('right')
 			});
 			$("#battle").append(card);
-			console.log(card.css('left'), card.css('right'), card.css('left') !== 'auto');
 			if (card.css('left') !== 'auto') {
 				card.animate({
 					'left': 1300,
@@ -206,7 +208,12 @@ $(function() {
 	});
 	socket.on('sa-gameover', function(data) {
 		var d = data.data;
-		stateChecker.toState('gameover');
 		console.log(d);
+		stateChecker.toState('gameover');
+		if (d.loser.name === '哮天犬') {
+			$("#win-img").attr("src", winnerImages[0]);
+		} else {
+			$("#win-img").attr("src", winnerImages[1]);
+		}
 	});
 });
