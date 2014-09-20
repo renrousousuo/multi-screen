@@ -101,7 +101,7 @@ Sprite.prototype.attack = function(target) {
 	var me = this;
 	this.animate = setInterval(function() {
 		count++;
-		if (count === 2) {
+		if (count === 10) {
 			me.normal();
 			return false;
 		}
@@ -116,5 +116,5 @@ Sprite.prototype.attack = function(target) {
 				top: '240px'
 			}, 900)
 		}
-	}, 1000);
+	}, 100);
 }
