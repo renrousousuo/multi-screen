@@ -78,6 +78,29 @@ Sprite.prototype.normal = function() {
 		curImg = (++curImg) % images.length;
 		img.attr('src', images[curImg]);
 		if (container.css('top') === '240px') {
+			container.stop().animate({
+				top: '220px'
+			}, 900)
+		} else {
+			container.stop().animate({
+				top: '240px'
+			}, 900)
+		}
+	}, 1000);
+};
+//攻击
+Sprite.prototype.attack = function(target) {
+	window.clearInterval(this.animate);
+	var container = this.container;
+	var configs = this.configs;
+	var images = configs.images["attack"];
+	var curImg = 0;
+	var img = container.find('img');
+	var count = 0;
+	this.animate = setInterval(function() {
+		curImg = (++curImg) % images.length;
+		img.attr('src', images[curImg]);
+		if (container.css('top') === '240px') {
 			container.animate({
 				top: '220px'
 			}, 900)
@@ -87,8 +110,4 @@ Sprite.prototype.normal = function() {
 			}, 900)
 		}
 	}, 1000);
-};
-//攻击
-Sprite.prototype.attack = function(target) {
-
 }
