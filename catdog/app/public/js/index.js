@@ -1,11 +1,15 @@
 $(function() {
 	// var cards = new _W.CardBar('cards');
+	var winnerImages = [
+		'images/cat_win_text.png',
+		'images/dog_win_text.png'
+	];
 	var bgmusic = $("#bgmusic");
 	var playerList = [];
 	var cards;
 	var configs = {
 		maxPlayers: 4,
-		address: '192.168.1.104:8084/master',
+		address: 'http://172.22.72.129:8084/master',
 		bossList: []
 	};
 	var activeBoss = [];
@@ -25,7 +29,7 @@ $(function() {
 	var states = {
 		'intro': {
 			enter: function(data) {
-				createQrcode('http://192.168.1.104:8084/static/mobile');
+				createQrcode('http://172.22.72.129:8084/static/mobile');
 				var intro = $("#templates").find('#intro');
 				$("#stage").append(intro);
 			},
@@ -134,7 +138,6 @@ $(function() {
 		var joinCount = $("#join-count");
 		configs.maxPlayers = data.max_players;
 		configs.bossList = data.boss_list;
-		console.log(data);
 		joinCount.html(data.total + '/' + configs.maxPlayers);
 		if (data.total >= configs.maxPlayers) {
 			stateChecker.toState('ready');
@@ -165,29 +168,27 @@ $(function() {
 	socket.on('sa-rm-shape', function(data) {
 		var d = data.data;
 		var card;
-		if (cards && d.shape) card = cards.destroy(d.shape.id);
+		if (cards) card = cards.destroy(d.shape.id);
 		var r = d.attack_result;
 		if (r) {
-			console.log(r);
 			//攻击消耗
 			var enemy = activeBoss[parseInt(r.player.enemy)];
 			var self = activeBoss[parseInt(r.player.hero)];
+			self.attack();
 			var enemycontainer = enemy.container;
 			var selfcontainer = self.container;
 			enemy.configs.data.hp = r.boss_status.hp;
-			console.log(enemy.configs.data.hp / enemy.configs.data.max_hp * 330);
 			enemy.configs.BloodBar.css({
 				'width': enemy.configs.data.hp / enemy.configs.data.max_hp * 330
 			});
 			card.css({
 				zIndex: 2,
 				top: 300,
+				opacity: 1,
 				left: selfcontainer.css('left'),
 				right: selfcontainer.css('right')
 			});
 			$("#battle").append(card);
-			console.log(selfcontainer.css('left'), selfcontainer.css('right'));
-			//console.log(card.css('left'), card.css('right'), card.css('left') !== 'auto');
 			if (card.css('left') !== 'auto') {
 				card.stop().animate({
 					'left': 1300,
@@ -195,6 +196,7 @@ $(function() {
 					card.remove();
 				})
 			} else {
+				card.css('right', 100);
 				card.stop().animate({
 					'right': 1300,
 				}, function() {
@@ -207,7 +209,12 @@ $(function() {
 	});
 	socket.on('sa-gameover', function(data) {
 		var d = data.data;
-		stateChecker.toState('gameover');
 		console.log(d);
+		stateChecker.toState('gameover');
+		if (d.loser.name === '哮天犬') {
+			$("#win-img").attr("src", winnerImages[0]);
+		} else {
+			$("#win-img").attr("src", winnerImages[1]);
+		}
 	});
 });
