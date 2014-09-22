@@ -3,6 +3,7 @@
     "max_room": 2,
     "max_shape_type": 7,
     "max_shape_life": 10,
+    "max_maters": 1,
     "max_players_in_room": 4,
     "boss_metadata": [
         {},

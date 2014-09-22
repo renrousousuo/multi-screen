@@ -49,6 +49,9 @@ socket.on('sa-connected', function(msg){
 });
 
 var MSG_CONF = {
+    'sa-enter-game-failed' : {
+        'msg_prefix': 'enter game error'
+    },
     'sa-user-join': {
         'msg_prefix': 'user join'
     },

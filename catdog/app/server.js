@@ -62,6 +62,10 @@ function _initGameMaster() {
             socket.join('worker'); //加入 worker 组
         }
         console.log('a master connected, mode : %s , ip : %s', mode, client_ip);
+        
+        if (GAME_INSTANCE.addMaster(socket, mode) === false) {
+            return false;
+        }
 
         // 通知展示端连接成功
         var data = GAME_INSTANCE.getGameData();
@@ -196,6 +200,47 @@ var Game = function() {
         //玩家位置占位
         seats: {}
     };
+    this._masters = { //游戏主控
+        total: 0,
+        members: {
+        }
+    };
+};
+
+/**
+ * 添加游戏主控制器
+ */
+Game.prototype.addMaster = function(socket, type) {
+    var ret = {
+        'player': null
+    };
+    var masters = this._masters;
+    var sid = socket.id;
+    // 判断游戏控制器是否已满
+    var msg = '';
+    if (type === "debug") {
+        masters.members[sid] = {
+            "type" : "debug"
+        };
+        return true;
+    }
+    if (masters.total >= GAME_CONF.max_maters) {
+        socket.emit("sa-enter-game-failed", {
+            "action": "sa-enter-game-failed",
+            "data": {
+                "msg": "游戏主控制器已满，请稍后重试"
+            }
+        });
+        console.log('Game.addMaster : add master failed, reach the max...');
+        socket.disconnect();
+        
+        return false;
+    }
+    masters.members[sid] = {
+        "type" : "worker"
+    };
+    masters.total++;
+    return true;
 };
 
 Game.prototype._initBoss = function() {
