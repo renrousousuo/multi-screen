@@ -5,21 +5,16 @@
     "max_shape_life": 10,
     "max_maters": 1,
     "max_players_in_room": 4,
-    "boss_metadata": [
-        {},
-        {
-            "max_hp": 500,
-            "name": "飞天猫"
-        },
-        {
-            "max_hp": 500,
-            "name": "哮天犬"
-        },
-        {
-            "max_hp": 500,
-            "name": "九尾狐"
-        }
-    ],
+    "boss_metadata": [{}, {
+        "max_hp": 5000,
+        "name": "飞天猫"
+    }, {
+        "max_hp": 5000,
+        "name": "哮天犬"
+    }, {
+        "max_hp": 5000,
+        "name": "九尾狐"
+    }],
     "shape_metadata": {
         "1": {
             "damage": 100
@@ -49,7 +44,7 @@
             "damage": 170
         }
     },
-    "role_name": [ 
+    "role_name": [
         "", "一鸣惊人", "二八佳人", "三生有幸", "四季发财",
         "五谷丰登", "六六大顺", "七上八下", "八面威风", "九五至尊"
     ]
