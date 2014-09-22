@@ -13,7 +13,9 @@ $(function() {
 		bossList: []
 	};
 	var activeBoss = [];
-	var socket = io(configs.address); //创建一个socket对象
+	var socket = io(configs.address, {    
+		'reconnection':  false
+	}); //创建一个socket对象
 	var createQrcode  = function(text) {
 		$("#qrcode").qrcode({            
 			render: 'canvas',
