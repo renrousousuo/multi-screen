@@ -33,7 +33,10 @@ $("#j_end_game").on('click', function(){
     socket.emit('as_end_game', '');
 });
 
-var socket = io('http://localhost:8084/master');
+var params = window.location.search;
+var socket = io('http://localhost:8084/master' + params, {
+    'reconnection': false
+});
 socket.on('connect', function(){
     //socket.emit('enter_game', 'hello');
     

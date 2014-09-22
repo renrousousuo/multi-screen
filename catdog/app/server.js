@@ -22,7 +22,7 @@ var GAME_CONF = require('./config/game.json');
 /**
  * 最大分组数
  */
-var MAX_TEAM = 2;
+var MAX_TEAM = GAME_CONF.max_team;
 /**
  * 最大玩家数
  */
@@ -30,11 +30,11 @@ var MAX_PLAYERS = GAME_CONF.max_players_in_room;
 /**
  * 符文类型数
  */
-var MAX_SHAPE = 7;
+var MAX_SHAPE = GAME_CONF.max_shape_type;
 /**
  * 图片最大生存周期
  */
-var MAX_SHAPE_LIFE = 10 * 1000;
+var MAX_SHAPE_LIFE = GAME_CONF.max_shape_life * 1000;
 
 /* ====== Begin Game Server ====== */
 /**
@@ -50,8 +50,18 @@ function _initGameMaster() {
     game_master.on('connection', function(socket) {
         //console.log(socket.handshake.headers);
         var client_ip = socket.request.connection.remoteAddress;
+        var req = socket.request;
         var sid = socket.id;
-        console.log('a master connected, socket id : %s , ip : %s', socket.id, client_ip);
+        var query = require('url').parse(req.url, true).query;
+        var mode = "worker"; //工作模式
+        if(query['mode'] == 'debug'){
+            mode = "debug";
+            socket.join('debug'); //加入调试组
+        }
+        else{
+            socket.join('worker'); //加入 worker 组
+        }
+        console.log('a master connected, mode : %s , ip : %s', mode, client_ip);
 
         // 通知展示端连接成功
         var data = GAME_INSTANCE.getGameData();
@@ -80,11 +90,16 @@ function _initGameMaster() {
         // 终止游戏
         socket.on("as_end_game", function(msg) {
             console.log("======= GMAE MASTER END GAME ========");
-            GAME_INSTANCE.endGame(null);
+            GAME_INSTANCE.endGame(null, "game_master_abort_game");
         });
 
         socket.on('disconnect', function() {
-            console.log('a master disconnect...');
+            console.log('a master disconnect... mode : %s', mode);
+            if(mode === 'worker'){
+                console.log("======= game master offline, stop current game ========");
+                GAME_INSTANCE.endGame(null, "game_master_offline");
+            }
+            
         });
     });
     return game_master;
@@ -122,7 +137,7 @@ function _initGmaeSlave() {
                 var hp = boss_status["hp"];
                 // boss血量为 0，游戏结束
                 if (parseInt(hp) <= 0) {
-                    GAME_INSTANCE.endGame(boss_status);
+                    GAME_INSTANCE.endGame(boss_status, 0);
                 }
             }
 
@@ -279,20 +294,26 @@ Game.prototype.stopGenShape = function() {
 };
 
 //停止游戏
-Game.prototype.endGame = function(loser) {
+/**
+ * @param {Object} loser 失败者
+ * @param {errno} 错误类型
+ */
+Game.prototype.endGame = function(loser, errno) {
     console.log("==== game over ====");
     this.stopGenShape(); //停止产生符文
     //通知展示端，
     GAME_SERVER.master.emit('sa-gameover', {
         "action": "sa-gameover",
         "data": {
-            "loser": loser //失败者
+            "loser": loser, //失败者
+            "errno": errno
         }
     });
     GAME_SERVER.slave.emit('sm-gameover', {
         "action": "sm-gameover",
         "data": {
-            "loser": loser //失败者
+            "loser": loser, //失败者
+            "errno": errno
         }
     });
 };

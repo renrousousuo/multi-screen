@@ -1,6 +1,8 @@
 {
-    "max_team": 3,
+    "max_team": 2,
     "max_room": 2,
+    "max_shape_type": 7,
+    "max_shape_life": 10,
     "max_players_in_room": 4,
     "boss_metadata": [
         {},
