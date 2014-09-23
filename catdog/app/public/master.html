@@ -34,7 +34,7 @@ $("#j_end_game").on('click', function(){
 });
 
 var params = window.location.search;
-var socket = io('http://localhost:8084/master' + params, {
+var socket = io('/master' + params, {
     'reconnection': false
 });
 socket.on('connect', function(){
