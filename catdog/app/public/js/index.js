@@ -9,7 +9,7 @@ $(function() {
 	var cards;
 	var configs = {
 		maxPlayers: 4,
-		address: 'http://172.22.72.129:8084/master',
+		address: 'http://172.22.74.162:8084/master',
 		bossList: []
 	};
 	var activeBoss = [];
@@ -31,7 +31,7 @@ $(function() {
 	var states = {
 		'intro': {
 			enter: function(data) {
-				createQrcode('http://172.22.72.129:8084/static/mobile');
+				createQrcode('http://172.22.74.162:8084/static/mobile');
 				var intro = $("#templates").find('#intro');
 				$("#stage").append(intro);
 			},
