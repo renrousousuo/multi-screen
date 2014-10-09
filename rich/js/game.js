@@ -2,13 +2,13 @@
 	//创建场景
 	var scene = new THREE.Scene();
 	//创建透视相机
-	var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-	camera.position.set(0, 0, 10);
+	var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
+	camera.position.set(0, 0, 500);
 	scene.add(camera);
 	//创建渲染器并添加到画布
 	var renderer = new THREE.WebGLRenderer();
 	renderer.setSize(window.innerWidth, window.innerHeight);
-	//document.body.appendChild(renderer.domElement);
+	document.body.appendChild(renderer.domElement);
 	//导演类的定义
 	var Direct = function(states) {
 		this.init(states);
@@ -28,7 +28,6 @@
 		"intro": {
 			"enter": function() {
 				var container, stats;
-				var camera, scene, renderer;
 				var group;
 				var mouseX = 0,
 					mouseY = 0;
@@ -42,11 +41,6 @@
 				function init() {
 
 					container = document.getElementById('container');
-
-					camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 2000);
-					camera.position.z = 500;
-
-					scene = new THREE.Scene();
 
 					group = new THREE.Object3D();
 					scene.add(group);
@@ -102,19 +96,8 @@
 					mesh.rotation.x = -Math.PI / 2;
 					group.add(mesh);
 
-					renderer = new THREE.CanvasRenderer();
 					renderer.setClearColor(0xffffff);
 					renderer.setSize(window.innerWidth, window.innerHeight);
-
-					container.appendChild(renderer.domElement);
-
-					stats = new Stats();
-					stats.domElement.style.position = 'absolute';
-					stats.domElement.style.top = '0px';
-					container.appendChild(stats.domElement);
-
-					document.addEventListener('mousemove', onDocumentMouseMove, false);
-
 					//
 
 					window.addEventListener('resize', onWindowResize, false);
@@ -133,13 +116,6 @@
 
 				}
 
-				function onDocumentMouseMove(event) {
-
-					mouseX = (event.clientX - windowHalfX);
-					mouseY = (event.clientY - windowHalfY);
-
-				}
-
 				//
 
 				function animate() {
@@ -147,7 +123,6 @@
 					requestAnimationFrame(animate);
 
 					render();
-					stats.update();
 
 				}
 
