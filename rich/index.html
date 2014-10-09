@@ -10,15 +10,26 @@
 		}
 		body{
 			overflow: hidden;
+			background-image: url(bg.jpg);
+			background-size: cover;
 		}
 		canvas{
 			width: 100%;
 			height: 100%;
 		}
+		h1{
+			position: absolute;
+			left: 50%;
+			top: 300px;
+			margin-left: -300px;
+			font-size: 100px;
+			color: white;
+			text-shadow: 0 0 20px #004986;
+		}
 	</style>
 </head>
-<body id="container">
-
+<body>
+	<h1>造物主的骰子</h1>
 </body>
 <script src="libs/three.min.js"></script>
 <script src="libs/DaeLoader.js"></script>
