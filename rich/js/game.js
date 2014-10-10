@@ -19,6 +19,7 @@
 	Direct.prototype.toState = function(key) {
 		if (this.curState) {
 			var curstate = this.states[this.curState];
+			curstate.leave();
 		}
 		var state = this.states[key];
 		this.curState = key;
