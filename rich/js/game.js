@@ -8,6 +8,7 @@
 	//创建渲染器并添加到画布
 	var renderer = new THREE.WebGLRenderer();
 	renderer.setSize(window.innerWidth, window.innerHeight);
+	var introText = $("#intro-text");
 	document.body.appendChild(renderer.domElement);
 	//导演类的定义
 	var Direct = function(states) {
@@ -364,6 +365,11 @@
 
 					renderer.setClearColor(0xffffff);
 					renderer.setSize(window.innerWidth, window.innerHeight);
+					var title = $("<div class='title'>造物者的骰子</div>");
+					introText.html(title);
+					title.anim({
+						'transform': 'translateY(300px)'
+					}, 0.5, 'ease-in-out');
 				}
 
 				function animate() {
@@ -404,6 +410,9 @@
 		"game": {
 			"enter": function() {
 				//播放字幕
+				var dramas = [
+
+				];
 				var displayDrama = function() {
 
 				};
