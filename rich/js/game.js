@@ -405,6 +405,7 @@
 			},
 			"leave": function() {
 				scene.children = [];
+				introText.html("");
 			}
 		},
 		"drama": {
