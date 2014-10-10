@@ -429,7 +429,7 @@
 
 				function init() {
 					camera.position.x = 0;
-					camera.position.y = 300;
+					camera.position.y = 500;
 					camera.position.z = 0;
 					// Grid
 					var size = 500,
