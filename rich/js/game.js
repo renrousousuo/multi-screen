@@ -2,8 +2,8 @@
 	//创建场景
 	var scene = new THREE.Scene();
 	//创建透视相机
-	var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 200);
-	camera.position.set(0, 50, 100);
+	var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 500);
+	camera.position.set(0, 70, 100);
 	scene.add(camera);
 	//创建渲染器并添加到画布
 	var renderer = new THREE.WebGLRenderer();
@@ -88,11 +88,6 @@
 				var map = [{
 					x: 0,
 					y: 0,
-					z: 0,
-					type: 5
-				}, {
-					x: 0,
-					y: 0,
 					z: -1,
 					type: 1
 				}, {
@@ -116,154 +111,159 @@
 					z: -2,
 					type: 2
 				}, {
-					x: 0,
+					x: 4,
 					y: 0,
-					z: 0,
+					z: -2,
 					type: 4
 				}, {
-					x: 0,
+					x: 5,
 					y: 0,
-					z: 0,
+					z: -2,
 					type: 3
 				}, {
-					x: 0,
+					x: 5,
 					y: 0,
-					z: 0,
+					z: -3,
 					type: 5
 				}, {
-					x: 0,
+					x: 5,
 					y: 0,
-					z: 0,
+					z: -4,
 					type: 5
 				}, {
-					x: 0,
+					x: 5,
 					y: 0,
-					z: 0,
+					z: -5,
 					type: 5
 				}, {
-					x: 0,
+					x: 5,
 					y: 0,
-					z: -1,
+					z: -6,
 					type: 1
+				}, {
+					x: 4,
+					y: 0,
+					z: -6,
+					type: 5
+				}, {
+					x: 3,
+					y: 0,
+					z: -6,
+					type: 0
+				}, {
+					x: 2,
+					y: 0,
+					z: -6,
+					type: 5
 				}, {
 					x: 1,
 					y: 0,
-					z: -1,
-					type: 5
-				}, {
-					x: 0,
-					y: 0,
-					z: 0,
-					type: 0
-				}, {
-					x: 0,
-					y: 0,
-					z: 0,
-					type: 5
-				}, {
-					x: 0,
-					y: 0,
-					z: 0,
+					z: -6,
 					type: 2
 				}, {
-					x: 0,
+					x: 1,
 					y: 0,
-					z: 0,
+					z: -7,
 					type: 4
 				}, {
-					x: 0,
+					x: 1,
 					y: 0,
-					z: 0,
+					z: -8,
 					type: 3
 				}, {
 					x: 0,
 					y: 0,
-					z: 0,
+					z: -8,
 					type: 5
 				}, {
-					x: 0,
+					x: -1,
 					y: 0,
-					z: 0,
+					z: -8,
 					type: 5
 				}, {
-					x: 0,
+					x: -2,
 					y: 0,
-					z: 0,
+					z: -8,
 					type: 5
 				}, {
-					x: 0,
+					x: -3,
 					y: 0,
-					z: -1,
+					z: -8,
 					type: 1
 				}, {
-					x: 1,
+					x: -4,
 					y: 0,
-					z: -1,
+					z: -8,
 					type: 5
 				}, {
-					x: 0,
+					x: -5,
 					y: 0,
-					z: 0,
+					z: -8,
 					type: 0
 				}, {
-					x: 0,
+					x: -5,
 					y: 0,
-					z: 0,
+					z: -7,
 					type: 5
 				}, {
-					x: 0,
+					x: -5,
 					y: 0,
-					z: 0,
+					z: -6,
 					type: 2
 				}, {
-					x: 0,
+					x: -6,
 					y: 0,
-					z: 0,
+					z: -6,
 					type: 4
 				}, {
-					x: 0,
+					x: -7,
 					y: 0,
-					z: 0,
+					z: -6,
 					type: 3
 				}, {
-					x: 0,
+					x: -8,
 					y: 0,
-					z: 0,
+					z: -6,
 					type: 5
 				}, {
-					x: 0,
+					x: -8,
 					y: 0,
-					z: 0,
+					z: -7,
 					type: 5
 				}, {
-					x: 0,
+					x: -8,
 					y: 0,
-					z: 0,
+					z: -8,
 					type: 5
 				}, {
-					x: 0,
+					x: -8,
 					y: 0,
-					z: -1,
+					z: -9,
 					type: 1
 				}, {
-					x: 1,
+					x: -8,
 					y: 0,
-					z: -1,
+					z: -10,
 					type: 5
 				}, {
-					x: 0,
+					x: -8,
 					y: 0,
-					z: 0,
+					z: -11,
 					type: 0
 				}, {
-					x: 0,
+					x: -8,
 					y: 0,
-					z: 0,
+					z: -12,
 					type: 5
 				}, {
-					x: 0,
+					x: -7,
 					y: 0,
-					z: 0,
+					z: -12,
+					type: 2
+				}, {
+					x: -6,
+					y: 0,
+					z: -12,
 					type: 2
 				}]; //设置不同的格子类型和位置
 				console.log(map.length);
@@ -282,9 +282,23 @@
 					cube.position.z = data.z * 20;
 					scene.add(cube);
 				}
+				//创建终点
+				var geometryEnd = new THREE.BoxGeometry(20, 20, 20);
+				var materialEnd = new THREE.MeshBasicMaterial({
+					color: 0xfacd89
+				});
+				var end = new THREE.Mesh(geometryEnd, materialEnd);
+				var endPos = {
+					x: -5,
+					y: 0,
+					z: -12
+				}
+				end.position.x = endPos.x * 20;
+				end.position.y = endPos.y * 20;
+				end.position.z = endPos.z * 20;
+				scene.add(end);
 				//渲染场景
 				renderer.render(scene, camera);
-				//创建终点
 			},
 			"leave": function() {
 
