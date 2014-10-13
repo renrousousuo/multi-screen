@@ -2,8 +2,8 @@
 	//创建场景
 	var scene = new THREE.Scene();
 	//创建透视相机
-	var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
-	camera.position.set(0, 0, 500);
+	var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 200);
+	camera.position.set(0, 30, 0);
 	scene.add(camera);
 	//创建渲染器并添加到画布
 	var renderer = new THREE.WebGLRenderer();
@@ -79,14 +79,15 @@
 			"enter": function() {
 				//创建36个格子
 				for (var i = 0; i < 36; i++) {
-					var geometry = new THREE.BoxGeometry(20, 20, 20);
+					var geometry = new THREE.BoxGeometry(10, 10, 10);
 					//随机颜色
 					var color = parseInt(Math.random() * 255) * parseInt(Math.random() * 255) * parseInt(Math.random() * 255);
 					var material = new THREE.MeshBasicMaterial({
 						color: color
 					});
 					var cube = new THREE.Mesh(geometry, material);
-					cube.position.x = 20 * i;
+					cube.position.x = -100 + 20 * i;
+					cube.position.z = -100;
 					scene.add(cube);
 				}
 				//渲染场景
