@@ -8,8 +8,9 @@
 	//创建渲染器并添加到画布
 	var renderer = new THREE.WebGLRenderer();
 	renderer.setSize(window.innerWidth, window.innerHeight);
-	var introText = $("#intro-text");
 	document.body.appendChild(renderer.domElement);
+	//字幕组件
+	var introText = $("#intro-text");
 	//导演类的定义
 	var Direct = function(states) {
 		this.init(states);
@@ -76,7 +77,21 @@
 		},
 		"game": {
 			"enter": function() {
-
+				//创建36个格子
+				for (var i = 0; i < 36; i++) {
+					var geometry = new THREE.BoxGeometry(20, 20, 20);
+					//随机颜色
+					var color = parseInt(Math.random() * 255) * parseInt(Math.random() * 255) * parseInt(Math.random() * 255);
+					var material = new THREE.MeshBasicMaterial({
+						color: color
+					});
+					var cube = new THREE.Mesh(geometry, material);
+					cube.position.x = 20 * i;
+					scene.add(cube);
+				}
+				//渲染场景
+				renderer.render(scene, camera);
+				//创建终点
 			},
 			"leave": function() {
 
@@ -84,5 +99,5 @@
 		}
 	};
 	var dRect = new Direct(states);
-	dRect.toState("intro");
+	dRect.toState("game");
 })();
