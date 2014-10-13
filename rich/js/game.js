@@ -29,18 +29,49 @@
 	var states = {
 		"intro": {
 			"enter": function() {
-
+				var title = $("<h1 class='title'>造物主的骰子</h1>");
+				introText.append(title);
+				title.on("click", function() {
+					dRect.toState("drama")
+				});
 			},
 			"leave": function() {
-
+				introText.html('');
 			}
 		},
 		"drama": {
 			"enter": function() {
-
+				var words = [
+					"公元10000年的地球",
+					"人类处于信仰崩溃晚期",
+					"变得又黄又暴力",
+					"对自然不再保持应有的敬畏",
+					"重建一个地球的时刻来到了",
+					"地球的命运",
+					"掌握在身为造物主的你手中"
+				];
+				var idx = 0;
+				var display = function() {
+					if (idx === words.length) {
+						dRect.toState("game");
+					} else {
+						var intro = $("<h2 style='opacity:0'>" + words[idx] + "</h2>");
+						introText.append(intro);
+						intro.anim({
+							opacity: 1
+						}, 1.5);
+						idx++;
+						setTimeout(display, 2000);
+					}
+				};
+				display();
 			},
 			"leave": function() {
-
+				introText.anim({
+					opacity: 0
+				}, 2, 'ease-out', function() {
+					introText.html("");
+				});
 			}
 		},
 		"game": {
@@ -53,5 +84,5 @@
 		}
 	};
 	var dRect = new Direct(states);
-	dRect.toState("game");
+	dRect.toState("intro");
 })();
