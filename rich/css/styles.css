@@ -1,0 +1,40 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+body{
+	overflow: hidden;
+	background-image: url(../bg.jpg);
+	background-size: cover;
+}
+canvas{
+	width: 100%;
+	height: 100%;
+}
+.text{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 5
+}
+#intro-text>h1.title{
+	font-size: 100px;
+	color: white;
+	text-shadow: 0 0 20px #004986;
+	margin: 200px auto;
+	text-align: center;
+	display: block;
+	cursor: pointer;
+}
+#templates{
+	display: none;
+}
+#intro-text>h2{
+	text-align: center;
+	color: white;
+	font-size: 20px;
+	line-height: 30px;
+}
+#intro-text>h2:first-child{
+	margin-top: 200px;
+}
