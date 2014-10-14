@@ -2,7 +2,7 @@
 	//创建场景
 	var scene = new THREE.Scene();
 	//创建透视相机
-	var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 500);
+	var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 	camera.position.set(0, 70, 100);
 	scene.add(camera);
 	//创建渲染器并添加到画布
@@ -297,8 +297,69 @@
 				end.position.y = endPos.y * 20;
 				end.position.z = endPos.z * 20;
 				scene.add(end);
+				var radius = 0;
+				//创建骰子
+				var Dice = {
+					shape: null
+				}
+				var ImgUtils = THREE.ImageUtils;
+				var faces = [
+					ImgUtils.loadTexture("textures/face1.jpg"),
+					ImgUtils.loadTexture("textures/face2.jpg"),
+					ImgUtils.loadTexture("textures/face3.jpg"),
+					ImgUtils.loadTexture("textures/face4.jpg"),
+					ImgUtils.loadTexture("textures/face5.jpg"),
+					ImgUtils.loadTexture("textures/face6.jpg"),
+				];
+				//var loader = new THREE.TextureLoader();
+
+				var geometry = new THREE.BoxGeometry(40, 40, 40);
+				// var material = new THREE.MeshBasicMaterial({
+				// 	map: texture,
+				// 	overdraw: 0.5
+				// });
+				var materials = [];
+				materials.push(new THREE.MeshBasicMaterial({
+					map: faces[0],
+					color: 0xffffff
+				})); // right face
+				materials.push(new THREE.MeshBasicMaterial({
+					map: faces[1],
+					color: 0xffffff
+				})); // left face
+				materials.push(new THREE.MeshBasicMaterial({
+					map: faces[2],
+					color: 0xffffff
+				})); // top face
+				materials.push(new THREE.MeshBasicMaterial({
+					map: faces[3],
+					color: 0xffffff
+				})); // bottom face
+				materials.push(new THREE.MeshBasicMaterial({
+					map: faces[4],
+					color: 0xffffff
+				})); // front face
+				materials.push(new THREE.MeshBasicMaterial({
+					map: faces[5],
+					color: 0xffffff
+				})); // back face
+				var cubeMaterial = new THREE.MeshFaceMaterial(materials);
+				var meshDice = new THREE.Mesh(geometry, cubeMaterial);
+				meshDice.position.z = -100;
+				meshDice.position.y = 100;
+				scene.add(meshDice);
+
 				//渲染场景
-				renderer.render(scene, camera);
+				function render() {
+					meshDice.rotation.y += 0.01;
+					meshDice.rotation.z += 0.02;
+					// radius += 0.01;
+					// camera.position.x = 200 * Math.sin(radius);
+					// camera.position.z = 200 * Math.cos(radius) + 200;
+					renderer.render(scene, camera);
+					requestAnimationFrame(render);
+				}
+				render();
 			},
 			"leave": function() {
 
