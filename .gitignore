@@ -79,3 +79,4 @@ src/data/box.json
 src/Makefile
 
 src/Makefile-*
+package-lock.json
